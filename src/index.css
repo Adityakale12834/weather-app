@@ -1,5 +1,14 @@
 @import "tailwindcss";
 
+.white {
+  background-color: oklch(0.95 0.02 256.8); /* Light neutral shade */
+  color: #1a1a1a; /* Dark text for readability */
+}
+
+.dark {
+  background-color: oklch(0.15 0.05 264.67); /* Deeper dark blue-gray */
+  color: #f1f1f1; /* Light text for contrast */
+}
 
 
 ::-webkit-scrollbar {
