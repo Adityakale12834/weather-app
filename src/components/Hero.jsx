@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useCallback, useEffect, useState } from "react";
 import WeatherChart from "./Chart";
 
 function Hero() {
@@ -54,9 +54,10 @@ function Hero() {
         let storedCities = JSON.parse(localStorage.getItem("cities")) || [];
         if (!storedCities.includes(city)) {
             storedCities.push(city);
+            console.log("citya is",city);
+            setLocalCities([city, ...localCities])
             localStorage.setItem("cities", JSON.stringify(storedCities));
         }
-
         setCities([]);
     };
 
@@ -72,6 +73,14 @@ function Hero() {
         fetchWeatherData(selectedCity);
         fetchLocalCities();
     }, [selectedCity]);
+
+    // useEffect(() => {
+    //     fetchLocalCities();
+    // }, [fetchLocalCities]);
+
+    useCallback(() => {
+        fetchLocalCities();
+    },[])   
 
     return (
         <div className="bg-gray-900 text-white h-fit p-5">
@@ -145,7 +154,7 @@ function Hero() {
                             {/* Temperature */}
                             <div className="h-52 p-3 flex items-center justify-center border border-gray-700 bg-gray-800 rounded-xl transition  duration-300 ease-in-out hover:-translate-y-1 hover:scale-110">
                                 <div className="text-center font-bold">
-                                    <h1 className="text-4xl">{cityWeather.main.temp}°C</h1>
+                                    <h1 className="text-md sm:text-4xl">{cityWeather.main.temp}°C</h1>
                                     <p className="text-gray-400">
                                         Feels like: {cityWeather.main.feels_like}°C
                                     </p>
